@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>로그인 에러 Login Error</title>
+  </head>
+  <body>
+    <?php
+      $id = mysqli_real_escape_string($conn,$_POST['id']);
+      $password1 = mysqli_real_escape_string($conn,$_POST['pw']);
+      $password_hash1 = hash("sha256", $password1);
+      $query = "SELECT * FROM user_info WHERE user_id='".$id."'";
+      $idc_result = mysqli_query($conn, $query);
+      $member = mysqli_fetch_array($idc_result);
+      $check = $member['user_pw'];
+      if($check==$password_hash1){
+        $_SESSION['idx'] = $member[0];
+        $_SESSION['id'] = $member[1];
+        $_SESSION['name'] = $member[3];
+        $_SESSION['nick'] = $member[4];
+        $_SESSION['phone'] = $member[5];
+        $_SESSION['email'] = $member[6];
+        $_SESSION['grade'] = $member[7];
+         header('Location: ./index');
+     ?>
+     <?php
+   }
+   else {
+     echo "<script>alert('아이디 또는 비밀번호를 확인하세요! Check ID or PW!'); history.go(-1);</script>";
+      ?>
+
+      <?php
+        }
+       ?>
+  </body>
+</html>

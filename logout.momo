@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>원스력 발전소 후원 - Logout</title>
+  </head>
+  <body>
+    <?php
+    session_destroy();
+    header('Location: ./');
+     ?>
+        <?php
+          include_once('./include/copyright.php');
+        ?>
+
+        <?php
+          include_once('./include/jquery.php');
+         ?>
+  </body>
+</html>

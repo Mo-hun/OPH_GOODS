@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/session.php');
+ ?>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+ <?php
+   include_once('./include/session.php');
+  ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+    <title>관리자 페이지 - 항상 수고하십니다!</title>
+  </head>
+  <body>
+    <?php
+      include_once('./include/admin_navbar.php');
+     ?>
+     <?php
+       include_once('./include/admincheck.php');
+      ?>
+      <?php
+        include_once('./include/admin_pannel.php');
+       ?>
+    <?php
+      include_once('./include/admincard.php');
+     ?>
+    <?php
+      include_once('./include/copyright.php');
+     ?>
+     <?php
+       include_once('./include/jquery.php');
+      ?>
+  </body>
+</html>

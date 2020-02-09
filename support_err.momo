@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>후원 에러 Support Error</title>
+  </head>
+  <body>
+    <?php
+      $money_name = mysqli_real_escape_string($conn,$_POST['money_name']);
+      $get_name = mysqli_real_escape_string($conn,$_POST['get_name']);
+      $phone = mysqli_real_escape_string($conn,$_POST['phone']);
+      $money = mysqli_real_escape_string($conn,$_POST['money']);
+      $user_idx = $_SESSION['idx'];
+      $query_goods = "INSERT INTO GOODS
+      (GOODS_user, GOODS_status,GOODS_get_name,GOODS_money_name,GOODS_money,GOODS_phone,GOODS_comment,GOODS_time) VALUES('$user_idx',1,'$get_name','$money_name','$money','$phone','0',NOW())";
+      $result_goods = mysqli_query($conn, $query_goods);
+      echo "<script>alert('신청이 완료되었습니다!'); location.href='/';</script>"
+     ?>
+
+  </body>
+</html>

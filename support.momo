@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>후원 Supporting</title>
+    <?php
+      if(isset($_SESSION['idx']))  {
+     ?>
+    <script>
+      var Myinfo_flag = 0;
+      function Myinfo() {
+        if(Myinfo_flag == 0)  {
+          var user_idx = "<?=$_SESSION['idx']?>";
+          var user_name = "<?=$_SESSION['name']?>";
+          var user_phone = "<?=$_SESSION['phone']?>";
+          var user_email = "<?=$_SESSION['email']?>";
+          document.getElementById( 'money_name' ).setAttribute( 'value', user_name );
+          document.getElementById( 'get_name' ).setAttribute( 'value', user_name );
+          document.getElementById( 'phone' ).setAttribute( 'value', user_phone );
+          Myinfo_flag = 1;
+        }else {
+          document.getElementById( 'money_name' ).setAttribute( 'value', "" );
+          document.getElementById( 'get_name' ).setAttribute( 'value', "" );
+          document.getElementById( 'phone' ).setAttribute( 'value', "" );
+          Myinfo_flag = 0;
+        }
+
+      }
+
+
+    </script>
+    <?php
+          }
+          else {
+            echo "<script>alert('로그인 후 이용해 주세요! Please use it after Sign in!'); location.href='/login';</script>";
+            exit("");
+          } ?>
+    <link rel="stylesheet" href="/CSS/login.css">
+  </head>
+  <body>
+
+    <?php
+      include_once('./include/navbar.php');
+     ?><br><br><br>
+     <div class="card" style="width:25rem; border-radius:20px;">
+      <div class="card-title" style="margin-top:30px;">
+        <h2 class="card-title text-center" style="color:#113366;">후원 하기 Supporting</h2>
+      </div>
+  		<div class="card-body">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="MyInfo"  onclick="Myinfo();">
+          <label class="form-check-label" for="MyInfo">
+            내 정보 사용하기 (Using My Information)
+          </label>
+        </div>
+        <hr>
+        <form method="POST" action="/support_err">
+          <div class="form-group">
+            <label for="money_name">입금자 성함 / Depositor name</label>
+            <input type="text" class="form-control" name="money_name" id="money_name" placeholder="홍길동(HONG GILDONG)">
+          </div>
+          <div class="form-group">
+            <label for="get_name">수령자 성함 / Recipient name</label>
+            <input type="text" class="form-control" name="get_name" id="get_name" placeholder="홍길동(HONG GILDONG)">
+          </div>
+          <div class="form-group">
+            <label for="phone"> 전화번호 (휴대전화) / call number </label>
+            <input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678">
+          </div>
+          <div class="form-group">
+            <label for="money">입금 금액 / Deposit amount </label>
+            <select class="form-control" name="money" id="money">
+              <option value="10000">10,000 KRW</option>
+              <option value="20000">20,000 KRW</option>
+              <option value="30000">30,000 KRW</option>
+              <option value="40000">40,000 KRW</option>
+              <option value="50000">50,000 KRW</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-outline-info">제출 (submit)</button>
+        </form>
+      </div>
+    </div>
+    <?php
+      include_once('./include/copyright.php');
+    ?>
+
+    <?php
+      include_once('./include/jquery.php');
+     ?>
+  </body>
+</html>

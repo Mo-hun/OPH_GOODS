@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>비밀번호 재설정 실패 Password reset failed</title>
+    <?php
+      $id = $_POST['id'];
+      $pw = $_POST['pw'];
+      $cpw = $_POST['cpw'];
+      $password1 = mysqli_real_escape_string($conn,$_POST['pw']);
+      $password_hash1 = hash("sha256", $password1);
+      $password_lock = $password_hash1;
+      if($pw == $cpw) {
+        $query1 = "UPDATE user_info SET `user_pw` = `$password_lock` WHERE `user_id`=`$id`";
+      }else {
+        die ("<script>alert('비밀번호가 일치하지 않습니다! Please enter a matching password and password check.'); history.go(-1);</script>");
+      }
+      $result1 = mysqli_query($conn, $query1);
+      if($conn->connect_error) {
+        die("<script>alert('비밀번호 재설정 실패! 관리자에게 문의하세요! Password reset failed! Contact your administrator! '); history.go(-1);</script>");
+      }
+      echo "<script>alert('비밀번호 재설정 성공! Password reset succeeded!'); location.href='/';</script>";
+     ?>
+  </head>
+  <body>
+
+        <?php
+          include_once('./include/copyright.php');
+        ?>
+
+        <?php
+          include_once('./include/jquery.php');
+         ?>
+  </body>
+</html>

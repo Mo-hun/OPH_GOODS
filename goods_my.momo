@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+      <?php
+        if(isset($_SESSION['idx']))  {
+       ?>
+    <title>내 후원 상태는? (My Order Status)</title>
+  </head>
+  <body>
+    <?php
+          }
+          else {
+            echo "<script>alert('로그인 후 이용해 주세요! Please use it after Sign in!'); location.href='/login';</script>";
+            exit("");
+          } ?>
+    <?php
+      include_once('./include/navbar.php');
+     ?>
+     <br><br><br>
+     <!-- 유틸리티 나열 시작 -->
+     <?php
+      $user = $_SESSION['idx'];
+      $query1 = "SELECT * FROM GOODS WHERE GOODS_user=$user";
+      $result1 = mysqli_query($conn, $query1);
+      $count = 0;
+      ?>
+      <main role="main" class="container">
+        <div class="row">
+          <div class="col-md-8 blog-main">
+            <h3 class="pb-3 mb-4 border-bottom">
+              내 후원 상태는? (My Order Status) <br>
+              버튼을 클릭하세요! (Press the button!)
+            </h3>
+          </div><!-- /.blog-main -->
+        </div>
+      </main>
+      <main role="main" class="container">
+       <?php
+       while( $row1 = mysqli_fetch_assoc($result1) ) {
+         $count = $count + 1;
+        ?>
+        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".support_<?php echo $count;?>">후원 <?php echo $count;?>(Support <?php echo $count;?>)</button>
+       <div class="modal fade support_<?php echo $count;?>" tabindex="-1" role="dialog" aria-labelledby="support_<?php echo $count;?>" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+           <div class="modal-content">
+             <div class="modal-header">
+              <h5 class="modal-title">후원 <?php echo $count;?>(Support <?php echo $count;?>)</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+             <form method="POST" action="/support_err">
+               <div class="form-group">
+                 <label for="money_name">입금자 성함 / Depositor name</label>
+                 <input type="text" class="form-control" name="money_name" id="money_name" value="<?php echo $row1['GOODS_money_name'];?>" disabled>
+               </div>
+               <div class="form-group">
+                 <label for="get_name">수령자 성함 / Recipient name</label>
+                 <input type="text" class="form-control" name="get_name" id="get_name" value="<?php echo $row1['GOODS_get_name'];?>" disabled>
+               </div>
+               <div class="form-group">
+                 <label for="phone"> 전화번호 (휴대전화) / call number </label>
+                 <input type="text" class="form-control" name="phone" id="phone" value="<?php echo $row1['GOODS_phone'];?>" disabled>
+               </div>
+               <div class="form-group">
+                 <label for="money">입금 금액 / Deposit amount </label>
+                 <select class="form-control" name="money" id="money" disabled>
+                   <option value="<?php echo $row1['GOODS_money'];?>" selected><?php echo $row1['GOODS_money'];?> KRW</option>
+                 </select>
+               </div>
+               <div class="form-group">
+                 <label for="write_time"> 작성 시간 / (Write Time) (KST)</label>
+                 <input type="text" class="form-control" name="write_time" id="write_time" value="<?php echo $row1['GOODS_time'];?>" disabled>
+               </div>
+               <div class="form-group">
+                 <label for="Status"> 현재 상황 / (Status)</label>
+                 <input type="text" class="form-control" name="Status" id="Status" value="<?php
+                 $status = $row1['GOODS_status'];
+                 if($status == 1) {
+                   echo "신청 성공, 입금 확인 전 / Application successful, before deposit confirmation";
+                   $bg = "primary";
+                   $bar_status = 50;
+                 }else if ($status == 2) {
+                   echo "입금 확인 완료! / Deposit confirmation completed!";
+                   $bg = "success";
+                   $bar_status = 100;
+                 }else if ($status == 404)  {
+                   echo "과정 중 에러 ㅜㅠ / error... ㅜㅠ";
+                   $bg = "danger";
+                   $bar_status = 10;
+                 }?>" disabled>
+               </div>
+             </form>
+             <br><br>
+             <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-<?php echo $bg;?>" role="progressbar" style="width: <?php echo $bar_status; ?>%" aria-valuenow="<?php echo $bar_status; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기 (Close)</button>
+            </div>
+           </div>
+         </div>
+       </div>
+       <?php
+     } ?>
+   </main>
+    <?php
+      include_once('./include/copyright.php');
+    ?>
+
+    <?php
+      include_once('./include/jquery.php');
+     ?>
+  </body>
+</html>

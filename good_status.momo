@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>후원 상황 (Status)</title>
+  </head>
+  <body>
+    <?php
+      include_once('./include/navbar.php');
+     ?>
+     <?php
+       include_once('./include/pannel.php');
+      ?>
+
+    <?php
+      include_once('./include/copyright.php');
+    ?>
+
+    <?php
+      include_once('./include/jquery.php');
+     ?>
+  </body>
+</html>

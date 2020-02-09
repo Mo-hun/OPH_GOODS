@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/session.php');
+ ?>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>원스력발전소 후원 - 메인</title>
+  </head>
+  <body>
+    <?php
+      include_once('./include/navbar.php');
+     ?>
+     <?php
+       include_once('./include/pannel.php');
+      ?>
+    <?php
+      include_once('./include/card.php');
+     ?>
+    <?php
+      include_once('./include/copyright.php');
+     ?>
+     <?php
+       include_once('./include/jquery.php');
+      ?>
+  </body>
+</html>

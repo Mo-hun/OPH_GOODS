@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/session.php');
+ ?>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>원스력발전소 후원 - 에러!</title>
+  </head>
+  <body>
+    <!-- 대문 시작 -->
+    <div class="jumbotron bg-white">
+      <div class="container text-info">
+        <h1 class="display-3 font-weight-bold text-center">404 error</h1>
+          <p class="text-center">원스력발전소 후원 전용 사이트</p>
+          <p class="text-center">접속에 불편을 드려 죄송합니다!</p>
+      </div>
+    </div>
+    <!-- 대문 끝 -->
+  </body>
+</html>

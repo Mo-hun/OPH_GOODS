@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/session.php');
+     ?>
+    <?php
+      include_once('./include/update.php');
+     ?>
+      <?php
+        include_once('./include/head.php');
+       ?>
+    <title>후원 신청 확인하기</title>
+    <link href="/CSS/blog.css" rel="stylesheet">
+  </head>
+  <body>
+    <?php
+      include_once('./include/admincheck.php');
+     ?>
+    <?php
+      include_once('./include/admin_navbar.php');
+     ?>
+     <?php
+      $check = $_POST['check'];
+      $change = $_POST['action'];
+      $max = count($check);
+      $count = 0;
+      if($change == 1)  {
+        $query_update = "UPDATE GOODS SET `GOODS_status`=1 WHERE `GOODS_idx` IN ";
+      }else if($change == 2)  {
+        $query_update = "UPDATE GOODS SET `GOODS_status`=2 WHERE `GOODS_idx` IN ";
+      }else if($change == 404)  {
+        $query_update = "UPDATE GOODS SET `GOODS_status`=404 WHERE `GOODS_idx` IN ";
+      }
+      while($max>$count)  {
+        if($count == 0) {
+          $query_update = $query_update."( {$check[$count]}";
+        }
+        else {
+          $query_update = $query_update.", {$check[$count]}";
+        }
+        $count = $count + 1;
+      }
+      $query_update = $query_update.")";
+      $result_update = mysqli_query($conn, $query_update);
+      echo "<script>alert('변경 완료!'); history.go(-1);</script>";
+      ?>
+      <br><br><br>
+    <?php
+      include_once('./include/copyright.php');
+     ?>
+     <?php
+       include_once('./include/jquery.php');
+      ?>
+  </body>
+</html>

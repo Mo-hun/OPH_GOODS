@@ -1,0 +1,66 @@
+<!-- <!doctype html>
+<html lang="ko" dir="ltr">
+  <head>
+    <!-- <?php
+      include_once('./include/session.php');
+     ?>
+    <?php
+      include_once('./include/update.php');
+     ?>
+      <?php
+        include_once('./include/head.php');
+       ?> -->
+    <!-- <title>글작성 proc</title>
+    <link href="/CSS/blog.css" rel="stylesheet">
+  </head>
+  <body> -->
+    <!-- <?php
+      include_once('./include/admincheck.php');
+     ?> -->
+    <!-- <?php
+      include_once('./include/navbar.php');
+     ?>
+     <?php
+      $title = $_POST['title'];
+      $body = $_POST['body'];
+      if(isset($_POST['filecheck']))  {
+        $uploads_dir = './img';
+        // $allowed_ext = array('jpg','jpeg','png','gif');
+        // if(!in_array($ext, $allowed_ext)) {
+        //   echo "허용되지 않는 확장자입니다.";
+        // }
+        $error = $_FILES['myfile']['error'];
+        $name = $_FILES['myfile']['name'];
+        @$ext = array_pop(explode('.', $name));
+        if($error != UPLOAD_ERR_OK) {
+          switch ($error) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+              echo "파일이 너무 큽니다. ($error)";
+              break;
+              case UPLOAD_ERR_NO_FILE:
+              default:
+              echo "파일이 제대로 업로드 되지 않았습니다.";
+              break;
+            }
+        }
+        $file_name = $uploads_dir.'/'.$name;
+
+        move_uploaded_file($_FILES['myfile']['tmp_name'], "$uploads_dir/$name");
+      }else {
+        $file_name = 0;
+      }
+      $id = $_SESSION['idx'];
+      $query_notice = "INSERT INTO table_notice (notice_title, notice_body, notice_count, notice_author, notice_date, notice_file) VALUES('$title','$body',0,$id,NOW(),'$file_name')";
+
+      $result_notice = mysqli_query($conn, $query_notice);
+      ?> -->
+      <br><br><br>
+  //  <?php
+     //  include_once('./include/copyright.php');
+     // ?>
+     // <?php
+     //   include_once('./include/jquery.php');
+     //  ?>
+  </body>
+</html> -->

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>정보 수정 Modifiy My Information</title>
+  </head>
+  <body>
+    <?php
+      if(isset($_POST['pw'])){
+        $cpw = 1;
+        $password1 = mysqli_real_escape_string($conn,$_POST['pw']);
+        $password_hash1 = hash("sha256", $password1);
+        $password_lock = $password_hash1;
+      }else {
+        $cpw = 0;
+      }
+      if(isset($_POST['email'])){
+        $email = mysqli_real_escape_string($conn,$_POST['email']);
+      }else {
+        $email = $_SESSION['email'];
+      }
+      if(isset($_POST['phone'])){
+        $phone = mysqli_real_escape_string($conn,$_POST['phone']);
+      }else {
+        $phone = $_SESSION['phone'];
+      }
+      if(isset($_POST['pw_q'])){
+        $cpwq = 1;
+        $pw_q = mysqli_real_escape_string($conn,$_POST['pw_q']);
+      }else {
+        $cpwq = 0;
+      }
+      if(isset($_POST['Answercc'])){
+        $cAnswercc = 1;
+        $Answercc = mysqli_real_escape_string($conn,$_POST['Answercc']);
+      }else {
+        $cAnswercc = 0;
+      }
+      $idx = $_SESSION['idx'];
+      if($cpw == 1) {
+        if($cpwq == 1)  {
+          if($cAnswercc == 1) {
+            $query1 = "UPDATE user_info SET `user_pw` = `$password_lock`, `user_phone`=`$phone`, `pw_q`=`$pw_q`,`pw_a`=`$Answercc`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+          }else {
+            $query1 = "UPDATE user_info SET `user_pw` = `$password_lock`, `user_phone`=`$phone`, `pw_q`=`$pw_q`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+          }
+        } else if($cAnswercc == 1) {
+              $query1 = "UPDATE user_info SET `user_pw` = `$password_lock`, `user_phone`=`$phone`, `pw_a`=`$Answercc`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+          } else {
+            $query1 = "UPDATE user_info SET `user_pw` = `$password_lock`, `user_phone`=`$phone`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+            }
+          }else
+          {
+            if($cpwq == 1)  {
+              if($cAnswercc == 1) {
+                $query1 = "UPDATE user_info SET `user_phone`=`$phone`, `pw_q`=`$pw_q`,`pw_a`=`$Answercc`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+              }else {
+              $query1 = "UPDATE user_info SET `user_phone`=`$phone`, `pw_q`=`$pw_q`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+              }
+            }else if($cAnswercc == 1) {
+                  $query1 = "UPDATE user_info SET `user_phone`=`$phone`, `pw_a`=`$Answercc`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+              } else {
+                $query1 = "UPDATE user_info SET `user_phone`=`$phone`, `user_email`=`$email` WHERE `user_idx`=`$idx`";
+              }
+          }
+      $result1 = mysqli_query($conn, $query1);
+     ?>
+     <div class='alert alert-primary' role='alert'>변경이 완료되었습니다.<br>The change has been completed.</div>
+
+       <button class="btn btn-outline-info" onclick="location.href='/';">홈으로 (Go to Main)</button>
+
+        <?php
+          include_once('./include/copyright.php');
+        ?>
+
+        <?php
+          include_once('./include/jquery.php');
+         ?>
+  </body>
+</html>

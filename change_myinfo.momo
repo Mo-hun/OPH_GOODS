@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/update.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+     <link rel="stylesheet" href="/CSS/login.css">
+    <title>마이페이지 My Page</title>
+  </head>
+  <body>
+    <?php
+      include_once('./include/navbar.php');
+     ?>
+     <br><br><br><br>
+     <div class="card" style="width:25rem; border-radius:20px;">
+      <div class="card-title" style="margin-top:30px;">
+        <h2 class="card-title text-center" style="color:#113366;">내 정보 My Information</h2>
+        <?php
+          if($_SESSION['id']==$_POST['id']) {
+            $id = mysqli_real_escape_string($conn,$_POST['id']);
+            $password1 = mysqli_real_escape_string($conn,$_POST['pw']);
+            $password_hash1 = hash("sha256", $password1);
+            $query = "SELECT * FROM user_info WHERE user_id='".$id."'";
+            $idc_result = mysqli_query($conn, $query);
+            $member = mysqli_fetch_array($idc_result);
+            $check = $member['user_pw'];
+            if($check==$password_hash1){
+            ?>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="/change_myinfo_proc">
+          <div class="form-group">
+            <label for="id">아이디 변경은 불가합니다. (You cannot change your ID.)</label>
+            <input type="text" class="form-control" name="id" id="id" value="<?=$_SESSION['id']?>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="pw">바꿀 비밀번호 New Password (필수 아님, Not mandatory)</label>
+            <input type="text" class="form-control" name="pw" id="pw" placeholder="바꿀 비밀번호 (new password)">
+          </div>
+          <div class="form-group">
+            <label for="name">이름 변경은 불가합니다. (You cannot change your Name.)</label>
+            <input type="text" class="form-control" name="name" id="name" value="<?=$_SESSION['name']?>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="nick">닉네임 변경은 불가합니다. (You cannot change your Nickname.)</label>
+            <input type="text" class="form-control" name="nick" id="nick" value="<?=$_SESSION['nick']?>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="phone"> 전화번호 (휴대전화) / call number </label>
+            <input type="text" class="form-control" name="phone" id="phone" value="<?=$_SESSION['phone']?>">
+          </div>
+          <div class="form-group">
+            <label for="email"> 이메일 (email) </label>
+            <input type="text" class="form-control" name="email" id="email" value="<?=$_SESSION['email']?>">
+          </div>
+          <div class="form-group">
+            <label for="grade"> 회원 구분 (Grade) </label>
+            <input type="text" class="form-control" name="grade" id="grade" value="<?php
+            $grade = $_SESSION['grade']; if($grade == 0)  {
+              echo "General";
+            } else if($grade == 20151020){
+              echo "관리자(일반)";
+            } else if($grade == 1109) {
+              echo "사이트 관리자(twiceland)";
+            }?>" disabled>
+          </div>
+          <select name="pw_q" class="form-control">
+            <option value="">바꿀 비밀번호 Password Question (필수 아님, Not mandatory)</option>
+            <option value="1">자신의 출신 지역은?(Where are you from?)</option>
+            <option value="2">다른 이메일 주소는?(What's the other email address?)</option>
+            <option value="3">나의 보물 1호는?(What about my treasure number one?)</option>
+            <option value="4">나의 이상형은?(What is my ideal type?)</option>
+            <option value="5">내가 제일 좋아하는 멤버는?(Who is my favorite member?)</option>
+          </select>
+          <br>
+          <input type="text" name="Answercc" id="Answercc" class="form-control" placeholder="Answer (필수 아님, Not mandatory)">
+          <BR>
+          <button type="submit" class="btn btn-outline-info">변경하기 (To change)</button>
+        </form>
+      </div>
+      <?php
+          }else {
+            echo "<script>alert('아이디 또는 비밀번호를 확인하세요! Check ID or PW!'); history.go(-1);</script>";
+          }
+        }
+        else {
+          echo "<script>alert('아이디 또는 비밀번호를 확인하세요! Check ID or PW!'); history.go(-1);</script>";
+        }
+       ?>
+    </div>
+    <?php
+      include_once('./include/copyright.php');
+    ?>
+
+    <?php
+      include_once('./include/jquery.php');
+     ?>
+  </body>
+</html>

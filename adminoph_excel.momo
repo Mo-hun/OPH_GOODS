@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/session.php');
+     ?>
+    <?php
+      include_once('./include/dbconnect.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+      <?php
+        include_once('./include/head.php');
+       ?>
+    <title>엑셀 출력</title>
+    <link href="/CSS/blog.css" rel="stylesheet">
+  </head>
+  <body>
+    <?php
+      include_once('./include/admincheck.php');
+     ?>
+    <?php
+      include_once('./include/admin_navbar.php');
+     ?><br><br><br>
+     <main role="main" class="container">
+       <div class="row">
+         <div class="col-md-8 blog-main">
+           <h3 class="pb-3 mb-4 border-bottom">
+             엑셀 출력
+           </h3>
+           <nav class="blog-pagination">
+             <a class="btn btn-outline-secondary" href="/adminoph_excel_proc?id=2">완료된 항목만 내보내기</a>
+             <a class="btn btn-outline-primary" href="/adminoph_excel_proc?id=0">모든 항목 내보내기</a>
+           </nav>
+         </div><!-- /.blog-main -->
+         <aside class="col-md-4 blog-sidebar">
+           <div class="p-3 mb-3 bg-light">
+             <h4 class="text-truncate">이 사이트는..(This Web..)</h4>
+             <p class="mb-0">원스력 발전소 에서 진행하는 TWICELAND 후원을 돕기 위해 만들어 졌으며, 기존의 구글 폼 방식으론 가능하지 않던 실시간 후원자 상태 확인 등의 기능이 추가된 사이트 입니다.</p>
+           </div>
+           <div class="p-3">
+             <h4 class="font-italic">링크(links)</h4>
+             <ol class="list-unstyled">
+               <li><a href="https://twitter.com/TEAM_OPH" target="_blank">Twitter(TEAM_OPH)</a></li>
+               <li><a href="https://twitter.com/jypetwice" target="_blank">Twitter(TWICE)</a></li>
+             </ol>
+           </div>
+         </aside>
+       </div>
+     </main>
+
+    <?php
+      include_once('./include/copyright.php');
+     ?>
+     <?php
+       include_once('./include/jquery.php');
+      ?>
+  </body>
+</html>

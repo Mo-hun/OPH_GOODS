@@ -1,0 +1,72 @@
+
+<?php
+header( "Content-type: application/vnd.ms-excel; charset=euc-kr" );
+header("Content-Disposition: attachment; filename=TEAM_OPH_SUPPORT_".date('ymd_his').".xls");
+header("Content-Description: PHP4 Generated Data");
+include '/usr/share/kopano/php/PHPExcel/Classes/PHPExcel.php';
+ ?>
+ <!doctype html>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/session.php');
+     ?>
+    <?php
+      include_once('./include/update.php');
+     ?>
+    <meta charset="utf-8">
+    <title>엑셀 출력</title>
+  </head>
+  <body>
+    <?php
+      include_once('./include/admincheck.php');
+     ?>
+     <?php
+      $id = $_GET['id'];
+      if($id == 0)  {
+        $query_excel = "SELECT * FROM GOODS order by GOODS_idx desc";
+      }else if($id == 2)  {
+        $query_excel = "SELECT * FROM GOODS WHERE GOODS_status=2 order by GOODS_idx desc";
+      }
+      $result_excel = mysqli_query($conn, $query_excel);
+      $EXCEL_STR = "
+        <table border='1'>
+        <tr>
+           <td>식별번호</td>
+           <td>회원번호</td>
+           <td>현재상태</td>
+           <td>수령자명</td>
+           <td>입금자명</td>
+           <td>후원금액</td>
+           <td>전화번호</td>
+           <td>추가사항</td>
+           <td>신청시간</td>
+        </tr>";
+        while($row = mysqli_fetch_array($result_excel)) {
+          if($row['GOODS_status']==2) {
+            $status = "확인완료";
+          }else if($row['GOODS_status'] == 1) {
+            $status = "입금 대기";
+          }else if($row['GOODS_status'] == 404) {
+            $status = "err!";
+          }
+           $EXCEL_STR .= "
+           <tr>
+           <td>".$row['GOODS_idx']."</td>
+           <td>".$row['GOODS_user']."</td>
+           <td>".$status."</td>
+           <td>".$row['GOODS_get_name']."</td>
+           <td>".$row['GOODS_money_name']."</td>
+           <td>".$row['GOODS_money']."</td>
+           <td>".$row['GOODS_phone']."</td>
+           <td>".$row['GOODS_comment']."</td>
+           <td>".$row['GOODS_time']."</td>
+            </tr>
+           ";
+        }
+        $EXCEL_STR .= "</table>";
+        echo "<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>";
+        echo $EXCEL_STR;
+      ?>
+  </body>
+</html>

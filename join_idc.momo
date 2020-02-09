@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+    <title>중복 확인 ID Check</title>
+  </head>
+  <body>
+    <?php
+      $userid = $_GET['userid'];
+      $uid = $userid;
+      $f_uid = mysqli_real_escape_string($conn, $uid);
+      $query = "SELECT count(*) FROM user_info WHERE user_id='".$f_uid."'";
+      $idc_result = mysqli_query($conn, $query);
+      $member = mysqli_fetch_array($idc_result);
+      $check = $member[0];
+      if($check==0){
+     ?>
+     <div class='alert alert-success text-center' role='alert'><h5>사용 가능<br>
+       Available</h5></div>
+     <?php
+   }
+   else {
+      ?>
+      <div class='alert alert-warning text-center' role='alert'><h5>사용 불가<br>
+        Unavailable</h5></div>
+      <?php
+        }
+       ?>
+       <button class="btn btn-outline-info" onclick="window.close()"> 닫기(close)</button>
+  </body>
+</html>

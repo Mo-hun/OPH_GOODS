@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<?php
+  include_once('./include/dbconnect.php');
+ ?>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/head.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+     <link rel="stylesheet" href="/CSS/login.css">
+    <title>회원가입 Join</title>
+    <script>
+    function checkid()  {
+        var userid = document.getElementById("id").value;
+        if(userid)  {
+          url = "join_idc?userid="+userid;
+          window.open(url,"chkid","width=300, height=100");
+        } else {
+          alert("아이디를 입력하세요 Please enter your ID.");
+        }
+      }
+      function check()  {
+        var userpw = document.getElementById("pw").value;
+        var userpwc = document.getElementById("cpw").value;
+        if(userpw == userpwc) {
+          document.getElementById("join").submit();
+        }
+        else {
+          document.getElementById("btnpwc").innerHTML = "<div class='alert alert-warning' role='alert'>비밀번호가 일치하지 않습니다. Passwords do not match</div>";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <?php
+      include_once('./include/navbar.php');
+     ?>
+
+     <br><br><br><br>
+   <div class="card" style="width:20rem; border-radius:20px;">
+		<div class="card-title" style="margin-top:30px;">
+			<h2 class="card-title text-center" style="color:#113366;">회원가입 Sign Up</h2>
+		</div>
+		<div class="card-body">
+      <form class="form-signin" id="join" method="POST" action="/join_proc">
+        <input type="text" name="id" id="id" class="form-control" placeholder="Your ID(아이디)" required autofocus><br>
+        <input type="button" class="btn btn-lg btn-outline-info btn-block" value="중복확인 Duplicate check" onclick="checkid();">
+        <BR>
+        <input type="password" name="pw" id="pw" class="form-control" placeholder="비밀번호(Password)" required><br>
+        <input type="password" name="cpw" id="cpw" class="form-control" placeholder="비밀번호 확인(Check password)" required><br>
+        <span id="btnpwc">
+
+        </span>
+        <input type="text" name="name" id="name" class="form-control" placeholder="실명(Your Realname)">
+        <BR>
+        <input type="text" name="nick" id="nick" class="form-control" placeholder="닉네임(Your nickname)">
+        <BR>
+        <input type="email" name="email" id="email" class="form-control" placeholder="이메일(Your email)">
+        <BR>
+        <input type="text" name="phone" id="phone" class="form-control" placeholder="phone only number(-없이 입력)">
+        <BR>
+        <select name="pw_q" class="form-control">
+          <option value="">비밀번호 찾기 질문 (Password Question)</option>
+          <option value="1">자신의 출신 지역은?(Where are you from?)</option>
+          <option value="2">다른 이메일 주소는?(What's the other email address?)</option>
+          <option value="3">나의 보물 1호는?(What about my treasure number one?)</option>
+          <option value="4">나의 이상형은?(What is my ideal type?)</option>
+          <option value="5">내가 제일 좋아하는 멤버는?(Who is my favorite member?)</option>
+        </select>
+        <br>
+        <input type="text" name="Answercc" id="Answercc" class="form-control" placeholder="질문의 답 (Answer)">
+        <BR>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1"><a href="/join_agree1" onclick="window.open(this.href,'이용약관(Terms of Service)','width=800, height=800');return false;">이용약관(Terms of Service)</a>에 동의(agree)합니다.</label>
+        </div>
+        <br>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck2">
+          <label class="custom-control-label" for="customCheck2"><a href="/join_agree2" onclick="window.open(this.href,'개인정보 수집 및 이용 동의(privacy policy)','width=800, height=800');return false">개인정보 수집 및 이용 동의(privacy policy)</a>에 동의(agree)합니다.</label>
+        </div>
+        <br>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck3">
+          <label class="custom-control-label" for="customCheck3"><a href="/join_agree3" onclick="window.open(this.href,'개인정보 제3자 제공에 대한 별도 동의(Separate agreement on the provision of personal information to third parties)','width=800, height=800');return false">개인정보 제3자 제공에 대한 별도 동의(Separate agreement on the provision of personal information to third parties)</a>에 동의(agree)합니다.</label>
+        </div>
+        <br>
+        <button id="btn-Yes" class="btn btn-lg btn-outline-info btn-block" type="button" onclick="check();">회원가입</button>
+      </form>
+      <br>
+      <br>
+
+		</div>
+	</div>
+
+
+    <?php
+      include_once('./include/copyright.php');
+    ?>
+
+    <?php
+      include_once('./include/jquery.php');
+     ?>
+  </body>
+</html>

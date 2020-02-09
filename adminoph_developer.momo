@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko" dir="ltr">
+  <head>
+    <?php
+      include_once('./include/session.php');
+     ?>
+    <?php
+      include_once('./include/dbconnect.php');
+     ?>
+     <?php
+       include_once('./include/session.php');
+      ?>
+      <?php
+        include_once('./include/head.php');
+       ?>
+    <title>개발자에게 연락하기</title>
+    <link href="/CSS/blog.css" rel="stylesheet">
+  </head>
+  <body>
+    <?php
+      include_once('./include/admincheck.php');
+     ?>
+    <?php
+      include_once('./include/admin_navbar.php');
+     ?>
+      <br><br><br>
+    정말정말 심각할때 : 010-4745-5254  <br>
+    그냥 심각할때 : ahgns1515(카톡) 또는 내맘이네전부를기억해(twitter) <br>
+    엄청 큰일났을때 : 광주소프트웨어마이스터고등학교 교무실 062)949-6800(08:30~16:30) (여기에 연락할때는 모훈 학생에게 급한일이 생겼다고 말씀 부탁드립니다.. 연락할 일이 생기게 된다면 정말 죄송합니당..) <br>
+
+    <?php
+      include_once('./include/copyright.php');
+     ?>
+     <?php
+       include_once('./include/jquery.php');
+      ?>
+  </body>
+</html>
